@@ -27,9 +27,20 @@ public class DownloadManager {
     public static void main(String[] args) {
         
         if (args.length < 4 || args.length > 5) {
+            System.out.println("usage: "
+                    + "java -jar "
+                    + "dataverse-download-manager-1.0.0-launcher.jar "
+                    + "dataverse_server, Api_key "
+                    + "persistentId "
+                    + "destination_dir "
+                    + "zipfile name (optional)");
+            System.out.println("Note: persistent Id "
+                    + "such as doi:10.5072/FK2/U2ASZ1 "
+                    + "is found in the Metadata tab of a dataset page");
             logger.log(Level.SEVERE, "Four arguments: dataverse_server, Api_key, "
-                    + "datasetId, destination_dir "
+                    + "persistentId, destination_dir "
                     + "or Five arguments (+ zipfile name) are expected");
+            logger.log(Level.INFO, "persistent Id such as doi:10.5072/FK2/U2ASZ1 is found in the Metadata tab of a dataset page");
             throw new IllegalArgumentException("The number of arguments must be 4 or 5.");
         }
         
@@ -39,7 +50,7 @@ public class DownloadManager {
         
         
         if (StringUtils.isBlank(args[0])) {
-            logger.log(Level.SEVERE, "dataverse URL should not be blank");
+            logger.log(Level.SEVERE, "dataverse server should not be blank");
             throw new IllegalArgumentException("dataverse URL should not be blank");
         }
         
@@ -49,8 +60,8 @@ public class DownloadManager {
         }
         
         if (StringUtils.isBlank(args[2])) {
-            logger.log(Level.SEVERE, "datasetId should not be blank");
-            throw new IllegalArgumentException("datasetId should not be blank");
+            logger.log(Level.SEVERE, "persistentId should not be blank");
+            throw new IllegalArgumentException("persistentId should not be blank");
         }
         
         if (StringUtils.isBlank(args[3])) {
